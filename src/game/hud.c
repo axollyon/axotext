@@ -17,6 +17,7 @@
 #include "engine/math_util.h"
 #include "puppycam2.h"
 #include "puppyprint.h"
+#include "axotext.h"
 
 #include "config.h"
 
@@ -601,6 +602,20 @@ void render_hud(void) {
 
         if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_SURFACES) print_text(10, 40, "SURFACE POOL FULL");
         if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES) print_text(10, 60, "SURFACE NODE POOL FULL");
+        
+        {
+            AxotextParams test = {
+                &comicsans,
+                16,
+                16,
+                AXOTEXT_ALIGN_CENTER,
+                255,
+                0,
+                0,
+                128
+            };
+            axotext_print(160, 40, &test, -1, "eat shit :)");
+        }
 
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
         if (gCustomDebugMode) {
