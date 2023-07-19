@@ -28,15 +28,9 @@
  **/
 
 #ifdef BREATH_METER
-// #ifdef DISABLE_LIVES
-// #define HUD_BREATH_METER_X         64
-// #define HUD_BREATH_METER_Y        200
-// #define HUD_BREATH_METER_HIDDEN_Y 300
-// #else
 #define HUD_BREATH_METER_X         40
 #define HUD_BREATH_METER_Y         32
 #define HUD_BREATH_METER_HIDDEN_Y -20
-// #endif
 #endif
 
 // ------------- FPS COUNTER ---------------
@@ -563,7 +557,7 @@ void render_hud(void) {
             render_hud_cannon_reticle();
         }
 
-#ifndef DISABLE_LIVES
+#ifdef ENABLE_LIVES
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
             render_hud_mario_lives();
         }
@@ -600,9 +594,6 @@ void render_hud(void) {
             render_hud_timer();
         }
 
-        if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_SURFACES) print_text(10, 40, "SURFACE POOL FULL");
-        if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES) print_text(10, 60, "SURFACE NODE POOL FULL");
-        
         {
             AxotextParams test = {
                 &comicsans,
@@ -621,9 +612,6 @@ void render_hud(void) {
         if (gCustomDebugMode) {
             render_debug_mode();
         }
-#endif
-#ifdef PUPPYPRINT
-        print_set_envcolour(255, 255, 255, 255);
 #endif
     }
 }

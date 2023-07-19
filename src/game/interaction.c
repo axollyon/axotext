@@ -737,8 +737,9 @@ u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *
 
 #ifdef X_COIN_STAR
     if (COURSE_IS_MAIN_COURSE(gCurrCourseNum) && m->numCoins - obj->oDamageOrCoinValue < X_COIN_STAR
-        && m->numCoins >= X_COIN_STAR) {
+        && m->numCoins >= X_COIN_STAR && !g100CoinStarSpawned) {
         bhv_spawn_star_no_level_exit(STAR_BP_ACT_100_COINS);
+        g100CoinStarSpawned = TRUE;
     }
 #endif
 #if ENABLE_RUMBLE
@@ -1706,11 +1707,14 @@ u32 check_read_sign(struct MarioState *m, struct Object *obj) {
         && abs_angle_diff(mario_obj_angle_to_object(m, obj), m->faceAngle[1]) <= SIGN_RANGE
     ) {
 #ifdef DIALOG_INDICATOR
+        struct Object *orangeNumber;
         if (obj->behavior == segmented_to_virtual(bhvSignOnWall)) {
-            spawn_object_relative(ORANGE_NUMBER_A, 0, 180, 32, obj, MODEL_NUMBER, bhvOrangeNumber);
+            orangeNumber = spawn_object_relative(ORANGE_NUMBER_A, 0, 180, 32, obj, MODEL_NUMBER, bhvOrangeNumber);
         } else {
-            spawn_object_relative(ORANGE_NUMBER_A, 0, 160,  8, obj, MODEL_NUMBER, bhvOrangeNumber);
+            orangeNumber = spawn_object_relative(ORANGE_NUMBER_A, 0, 160,  8, obj, MODEL_NUMBER, bhvOrangeNumber);
         }
+        orangeNumber->oHomeX = orangeNumber->oPosX;
+        orangeNumber->oHomeZ = orangeNumber->oPosZ;
 #endif
         if (m->input & READ_MASK) {
 #else
@@ -1741,11 +1745,14 @@ u32 check_npc_talk(struct MarioState *m, struct Object *obj) {
         && abs_angle_diff(mario_obj_angle_to_object(m, obj), m->faceAngle[1]) <= SIGN_RANGE
     ) {
 #ifdef DIALOG_INDICATOR
+        struct Object *orangeNumber;
         if (obj->behavior == segmented_to_virtual(bhvYoshi)) {
-            spawn_object_relative(ORANGE_NUMBER_A, 0, 256, 64, obj, MODEL_NUMBER, bhvOrangeNumber);
+            orangeNumber = spawn_object_relative(ORANGE_NUMBER_A, 0, 256, 64, obj, MODEL_NUMBER, bhvOrangeNumber);
         } else {
-            spawn_object_relative(ORANGE_NUMBER_A, 0, 160,  0, obj, MODEL_NUMBER, bhvOrangeNumber);
+            orangeNumber = spawn_object_relative(ORANGE_NUMBER_A, 0, 160,  0, obj, MODEL_NUMBER, bhvOrangeNumber);
         }
+        orangeNumber->oHomeX = orangeNumber->oPosX;
+        orangeNumber->oHomeZ = orangeNumber->oPosZ;
 #endif
         if (m->input & READ_MASK) {
 #else
