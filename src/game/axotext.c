@@ -61,7 +61,27 @@ void axotext_print(f32 x, f32 y, AxotextParams *params, s32 limit, const char *s
     tileSizeW = tileW * 2;
     tileSizeH = tileH;
 
+    gDPPipeSync(AXOTEXT_GDL_HEAD++);
     gDPSetEnvColor(AXOTEXT_GDL_HEAD++, params->r, params->g, params->b, params->a);
+    gDPSetCombineLERP(
+        AXOTEXT_GDL_HEAD++, 
+        0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0, 
+        0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0
+    );
+    gSPClearGeometryMode(AXOTEXT_GDL_HEAD++, G_ZBUFFER);
+    gDPSetRenderMode(AXOTEXT_GDL_HEAD++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+    switch (font->filter) {
+        case AXOTEXT_FILTER_POINT:
+            gDPSetTextureFilter(AXOTEXT_GDL_HEAD++, G_TF_POINT);
+            break;
+        case AXOTEXT_FILTER_BILERP:
+            gDPSetTextureFilter(AXOTEXT_GDL_HEAD++, G_TF_BILERP);
+            break;
+        case AXOTEXT_FILTER_AVERAGE:
+            gDPSetTextureFilter(AXOTEXT_GDL_HEAD++, G_TF_AVERAGE);
+            break;
+    }
+    gSPVertex(AXOTEXT_GDL_HEAD++, axotext_vertex, 4, 0);
 
 newLine:
     switch (params->align) {
@@ -96,31 +116,12 @@ newLine:
                     s32 modVtxBottom = roundf((AXOTEXT_SCREEN_H - currentY) * 4.0f);
 
                     gDPPipeSync(AXOTEXT_GDL_HEAD++);
-                    gDPSetCombineLERP(
-                        AXOTEXT_GDL_HEAD++, 
-                        0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0, 
-                        0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0
-                    );
-                    gSPClearGeometryMode(AXOTEXT_GDL_HEAD++, G_ZBUFFER);
-                    gDPSetRenderMode(AXOTEXT_GDL_HEAD++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-                    switch (font->filter) {
-                        case AXOTEXT_FILTER_POINT:
-                            gDPSetTextureFilter(AXOTEXT_GDL_HEAD++, G_TF_POINT);
-                            break;
-                        case AXOTEXT_FILTER_BILERP:
-                            gDPSetTextureFilter(AXOTEXT_GDL_HEAD++, G_TF_BILERP);
-                            break;
-                        case AXOTEXT_FILTER_AVERAGE:
-                            gDPSetTextureFilter(AXOTEXT_GDL_HEAD++, G_TF_AVERAGE);
-                            break;
-                    }
                     gSPTexture(AXOTEXT_GDL_HEAD++, 65535, 65535, 0, 0, 1);
                     gDPSetTextureImage(AXOTEXT_GDL_HEAD++, G_IM_FMT_I, G_IM_SIZ_8b, imageW, texture);
                     gDPSetTile(AXOTEXT_GDL_HEAD++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0);
                     gDPLoadTile(AXOTEXT_GDL_HEAD++, 7, 0, 0, tileW, tileH);
                     gDPSetTile(AXOTEXT_GDL_HEAD++, G_IM_FMT_I, G_IM_SIZ_4b, 4, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 7, 0, G_TX_CLAMP | G_TX_NOMIRROR, 6, 0);
                     gDPSetTileSize(AXOTEXT_GDL_HEAD++, 0, 0, 0, tileSizeW, tileSizeH);
-                    gSPVertex(AXOTEXT_GDL_HEAD++, axotext_vertex, 4, 0);
                     gSPModifyVertex(AXOTEXT_GDL_HEAD++, 0, G_MWO_POINT_XYSCREEN, ((modVtxLeft  << 16) + modVtxBottom));
                     gSPModifyVertex(AXOTEXT_GDL_HEAD++, 1, G_MWO_POINT_XYSCREEN, ((modVtxRight << 16) + modVtxBottom));
                     gSPModifyVertex(AXOTEXT_GDL_HEAD++, 2, G_MWO_POINT_XYSCREEN, ((modVtxRight << 16) + modVtxTop));
