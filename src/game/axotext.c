@@ -62,11 +62,11 @@ void axotext_print(f32 x, f32 y, AxotextParams *params, s32 limit, const char *s
     tileSizeH = tileH;
 
     gDPPipeSync(AXOTEXT_GDL_HEAD++);
-    gDPSetEnvColor(AXOTEXT_GDL_HEAD++, params->r, params->g, params->b, params->a);
+    gDPSetPrimColor(AXOTEXT_GDL_HEAD++, 0, 0, params->r, params->g, params->b, params->a);
     gDPSetCombineLERP(
         AXOTEXT_GDL_HEAD++, 
-        0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0, 
-        0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0
+        0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 
+        0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0
     );
     gSPClearGeometryMode(AXOTEXT_GDL_HEAD++, G_ZBUFFER);
     gDPSetRenderMode(AXOTEXT_GDL_HEAD++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
