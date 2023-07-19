@@ -595,7 +595,7 @@ void render_hud(void) {
         }
 
         {
-            AxotextParams test = {
+            AxotextParams params = {
                 &comicsans,
                 16,
                 16,
@@ -605,7 +605,7 @@ void render_hud(void) {
                 0,
                 128
             };
-            axotext_print(160, 40, &test, -1, "eat shit :)");
+            axotext_print(160, 40, &params, -1, "Thanks for trying out axotext\n<3");
         }
 
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
