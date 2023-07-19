@@ -5,6 +5,7 @@
 #include <PR/gbi.h>
 #include "axotext.h"
 
+
 extern void *puppyprint_font_lut[];
 extern void *puppyprint_kerning_lut[][82];
 extern const struct PPTextFont *const gPuppyPrintFontTable[];
@@ -81,5 +82,6 @@ extern Gfx dl_billboard_num_F[];
 
 // Axotext
 extern AxotextFont comicsans;
+extern AxotextFont terminus;
 
 #endif // SEGMENT2_H
