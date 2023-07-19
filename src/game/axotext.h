@@ -4,22 +4,9 @@
 #include <ultra64.h>
 
 /**
- * This value defines the resolution at which triangles will be drawn at.
- * For example, a value of 4.0f means that the smallest possible distance
- * between two vertices is 4 times smaller than a pixel on the framebuffer.
- * Higher precision values mean that text positioning and kerning will look
- * more accurate when drawn at small sizes or at non-integer positions.
- * 
- * Only change this if you know what you're doing.
- * It is not recommended to ever set this lower than 1.
- */ 
-#define AXOTEXT_PRECISION 4.0f
-
-/**
- * This should be the width and height of the screen as set in your engine's configuration.
- * For HackerSM64, these are define values named: SCREEN_WIDTH, SCREEN_HEIGHT
+ * This should be the height of the screen as set in your engine's configuration.
+ * For HackerSM64, this is a define value named: SCREEN_HEIGHT
  */
-#define AXOTEXT_SCREEN_W SCREEN_WIDTH
 #define AXOTEXT_SCREEN_H SCREEN_HEIGHT
 
 /**
