@@ -82,6 +82,10 @@ void axotext_print(f32 x, f32 y, AxotextParams *params, s32 limit, const char *s
             break;
     }
     gSPVertex(AXOTEXT_GDL_HEAD++, axotext_vertex, 4, 0);
+    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 0, G_MWO_POINT_ST, t);
+    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 1, G_MWO_POINT_ST, ((s << 16) + t));
+    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 2, G_MWO_POINT_ST, (s << 16));
+    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 3, G_MWO_POINT_ST, 0);
 
 newLine:
     switch (params->align) {
@@ -126,10 +130,6 @@ newLine:
                     gSPModifyVertex(AXOTEXT_GDL_HEAD++, 1, G_MWO_POINT_XYSCREEN, ((modVtxRight << 16) + modVtxBottom));
                     gSPModifyVertex(AXOTEXT_GDL_HEAD++, 2, G_MWO_POINT_XYSCREEN, ((modVtxRight << 16) + modVtxTop));
                     gSPModifyVertex(AXOTEXT_GDL_HEAD++, 3, G_MWO_POINT_XYSCREEN, ((modVtxLeft  << 16) + modVtxTop));
-                    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 0, G_MWO_POINT_ST, t); // 0
-                    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 1, G_MWO_POINT_ST, ((s << 16) + t)); // t
-                    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 2, G_MWO_POINT_ST, (s << 16)); // ((s << 16) + t)
-                    gSPModifyVertex(AXOTEXT_GDL_HEAD++, 3, G_MWO_POINT_ST, 0); // (s << 16)
                     gSP2Triangles(AXOTEXT_GDL_HEAD++, 0, 1, 2, 0x0, 0, 2, 3, 0x0);
                 }
                 currentX += (f32)kerningTable[c] * (charWidth / (f32)font->textureWidth);
