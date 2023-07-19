@@ -82,7 +82,7 @@ newLine:
         limit--;
         switch (c) {
             case '\n': {
-                currentY += params->lineHeight;
+                currentY -= params->lineHeight;
                 goto newLine;
                 break;
             }
