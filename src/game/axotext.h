@@ -4,6 +4,12 @@
 #include <ultra64.h>
 
 /**
+ * The maximum number of characters that can be displayed at once.
+ * Increasing this will use more memory.
+ */
+#define AXOTEXT_BUFFER_SIZE 200
+
+/**
  * This should be the height of the screen as set in your engine's configuration.
  * For HackerSM64, this is a define value named: SCREEN_HEIGHT
  */
@@ -90,5 +96,6 @@ typedef struct AxotextParams {
 } AxotextParams;
 
 extern void axotext_print(f32 x, f32 y, AxotextParams *params, s32 limit, const char *str);
+extern void axotext_render(void);
 
 #endif

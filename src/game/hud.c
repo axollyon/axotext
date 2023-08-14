@@ -606,6 +606,7 @@ void render_hud(void) {
                 128
             };
             axotext_print(160, 40, &params, -1, "Thanks for trying out axotext\n<3");
+            axotext_render();
         }
 
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
