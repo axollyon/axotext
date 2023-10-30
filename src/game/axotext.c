@@ -147,6 +147,7 @@ void axotext_setup(void) {
     );
     gSPClearGeometryMode(AXOTEXT_GDL_HEAD++, G_ZBUFFER);
     gDPSetRenderMode(AXOTEXT_GDL_HEAD++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+    gSPClipRatio(AXOTEXT_GDL_HEAD++, FRUSTRATIO_2);
 }
 
 void axotext_revert(void) {
