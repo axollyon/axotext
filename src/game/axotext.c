@@ -147,6 +147,9 @@ void axotext_setup(void) {
     );
     gSPClearGeometryMode(AXOTEXT_GDL_HEAD++, G_ZBUFFER);
     gDPSetRenderMode(AXOTEXT_GDL_HEAD++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+#ifndef USE_FRUSTRATIO2 // HackerSM64 specific define, idk if it should be changed to something different or if this check is even needed that much
+    gSPClipRatio(AXOTEXT_GDL_HEAD++, FRUSTRATIO_2);
+#endif
 }
 
 void axotext_revert(void) {
@@ -162,6 +165,9 @@ void axotext_revert(void) {
         0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT
     );
     gSPTexture(AXOTEXT_GDL_HEAD++, 65535, 65535, 0, 0, 0);
+#ifndef USE_FRUSTRATIO2
+    gSPClipRatio(AXOTEXT_GDL_HEAD++, FRUSTRATIO_1);
+#endif
 }
 
 /**
