@@ -4,6 +4,8 @@
 
 **based on [HackerSM64 v2.1](https://github.com/HackerN64/HackerSM64)**
 
+### note: if you were using axotext prior to august 13, 2023, you now need to call `axotext_render()` after you're finished printing!
+
 ## to use:
 - make an `AxotextFont` [(example)](https://github.com/axollyon/axotext/blob/axotext/bin/axotext/comicsans.inc.c) with the help of tools like someone2639's [ttf-2-sm64](https://github.com/someone2639/ttf-2-sm64) and [mksprite2](https://github.com/farisawan-2000/mksprite2)
   - this font must:
@@ -51,5 +53,12 @@
         "hello world!" // the string you want to print
       );
       ```
+- after you've called that as many times as you need (up to 200 non-whitespace characters at once), render all of your printed text with `axotext_render`
+  - like this:
+    - ```c
+      axotext_render();
+      ```
+    - you can change the character buffer size, `AXOTEXT_BUFFER_SIZE`, in `axotext.h` to allow for more characters to be rendered
+    - note that higher buffer sizes will use more memory
 - note that font size, line height, x position, and y position are actually floats. this engine allows for subpixel positioning at up to 4x precision, meaning the smallest unit for these is actually 0.25 pixels
 - have fun :)
