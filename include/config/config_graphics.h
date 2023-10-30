@@ -150,4 +150,4 @@
  * Can improve performance in some circumstances, though it can also cause large tris to warp if cut off from the camera.
  * Only use this if you can test the difference of your hack with and without this change on console.
  */
-#define USE_FRUSTRATIO2
+// #define USE_FRUSTRATIO2
