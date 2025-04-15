@@ -61,6 +61,7 @@ void axotext_add_char(unsigned char c, f32 x, f32 y, AxotextFont *font, f32 w, f
                 // Character with the same texture has not already been added:
                 // Add the new character to the end of the head array
                 axotextBufferHeads[i] = &axotextBuffer[axotextBufferIndex];
+                axotextBuffer[axotextBufferIndex].next = NULL;
                 axotextBufferHeadsIndex++;
 
                 charPlaced = TRUE;
