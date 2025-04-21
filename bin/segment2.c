@@ -3618,3 +3618,4 @@ const s16 seg2_painting_mesh_neighbor_tris[] = {
 
 // Axotext
 #include "axotext/comicsans.inc.c"
+#include "axotext/terminus.inc.c"
